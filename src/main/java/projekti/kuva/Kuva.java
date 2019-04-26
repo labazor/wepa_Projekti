@@ -1,4 +1,4 @@
-package projekti;
+package projekti.kuva;
 
 import javax.persistence.Entity;
 import lombok.AllArgsConstructor;

@@ -1,4 +1,4 @@
-package projekti;
+package projekti.seina;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -6,6 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
  *
  * @author Lassi Puurunen
  */
-public interface TiliRepository extends JpaRepository<Tili, Long> {
+public interface SeinaRepository extends JpaRepository<Seina, Long>{
     
 }

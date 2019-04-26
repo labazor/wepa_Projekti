@@ -1,7 +1,8 @@
-package projekti;
+package projekti.tili;
 
-import java.util.List;
+import projekti.kayttaja.Kayttaja;
 import javax.persistence.Entity;
+import javax.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,12 +17,11 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class Kayttaja extends AbstractPersistable<Long> {
+public class Tili extends AbstractPersistable<Long> {
     
-    private Tili tili;
-    private String nimi;
-    private Kuva profiilikuva;
-    private List<Kayttaja> kaverit;
-    private List<Kaveripyynto> kaveripyynnot;
-
+    private String kayttajatunnus, salasana;
+    
+    @OneToOne
+    private Kayttaja kayttaja;
+    
 }

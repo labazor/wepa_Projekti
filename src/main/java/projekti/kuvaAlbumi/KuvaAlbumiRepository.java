@@ -1,4 +1,4 @@
-package projekti;
+package projekti.kuvaAlbumi;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -6,6 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
  *
  * @author Lassi Puurunen
  */
-public interface KayttajaRepository extends JpaRepository<Kayttaja, Long> {
+public interface KuvaAlbumiRepository extends JpaRepository<KuvaAlbumi, Long>{
     
 }

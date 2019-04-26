@@ -1,5 +1,6 @@
 package projekti;
 
+import javax.annotation.PostConstruct;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -7,9 +8,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class DefaultController {
 
+    
     @GetMapping("*")
-    public String helloWorld(Model model) {
-        model.addAttribute("message", "World!");
-        return "index";
+    public String redirect() {
+        return "redirect:/kayttaja";
     }
 }

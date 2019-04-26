@@ -1,4 +1,4 @@
-package projekti;
+package projekti.kuva;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -6,6 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
  *
  * @author Lassi Puurunen
  */
-public interface KaveripyyntoRepository extends JpaRepository<Kaveripyynto, Long> {
+public interface KuvaRepository extends JpaRepository<Kuva, Long>{
     
 }
