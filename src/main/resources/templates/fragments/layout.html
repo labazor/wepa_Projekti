@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+
+<html>
+    <head th:fragment="header">
+      <title>Sosiaalinen Media</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+      <style>
+      .fakeimg {
+        height: 200px;
+        background: #aaa;
+      }
+      </style>
+    </head>
+    <body>
+        <div th:fragment="jumbotron" class="jumbotron text-center" style="margin-bottom:0">
+          <h1>Sosiaalinen media</h1>
+          <p>Yksinkertainen kuva ja keskustelusovellus</p> 
+        </div>
+        
+        <nav th:fragment="navigaatio" class="navbar navbar-expand-sm bg-dark navbar-dark">
+          <a class="navbar-brand" th:text="${etusivuKuvaus}" th:href="${etusivuLinkki}">Seinä</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="collapsibleNavbar">
+            <ul class="navbar-nav">
+              <li th:each="linkki : ${navigointi}" class="nav-item" >
+                  <a th:text="${linkki.kuvaus}" class="nav-link" th:href="${linkki.linkki}">Link</a>
+
+            </li>
+
+            </ul>
+          </div>  
+        </nav>
+        
+        <div th:fragment="footer" class="jumbotron text-center" style="margin-bottom:0">
+          <p>Footer</p>
+        </div>
+        
+    </body>
+</html>

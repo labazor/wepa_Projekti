@@ -1,23 +1,45 @@
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<html>
-    <head>
-        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<html lang="fi">
+    <head th:replace="fragments/layout :: header">
     </head>
     <body>
-        <div>
-            <form method="POST" th:action="@{/tili/uusi}">
-            <input type="text" name="nimi"/>
-            <input type="text" name="kayttajatunnus"/>
-            <input type="password" name="salasana"/>
-            <input type="submit" value="Lisaa uusi tili"/>
+        <div th:replace="fragments/layout :: jumbotron">
+        </div>
+        <div class="container" style="margin-top:30px">
+        <div class="row">
+    
+        <div class="mx-auto">
+        
+        <div tiles:fragment="content">
+            <form name="f" method="POST" th:action="@{/uusitili}">
+                <fieldset>
+                    <legend>Luo uusi tili</legend>
+                    <div>
+                        <label for="nimi">Käyttäjän nimi</label>
+                        <input type="text" name="nimi"/>
+                    </div>
+                    <div>
+                    <label for="kayttajatunnus">Käyttäjätunnus</label>
+                    <input type="text" name="kayttajatunnus"/>
+                    </div>
+                    <div>
+                    <label for="salasana">Salasana</label>
+                    <input type="password" name="salasana"/>
+                    </div>
+                    <div class="form-actions" >
+                        <button class="btn-success" type="submit">Luo uusi tili</button>
+                    </div>
+                </fieldset>
             </form>
+            <a href = "/">Takaisin alkuun</a>
+        </div>
+            
+        </div>
+        </div>
+        </div>
+        
+        <div th:replace="fragments/layout :: footer">
         </div>
     </body>
 </html>

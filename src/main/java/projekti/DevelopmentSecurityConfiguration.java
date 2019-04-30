@@ -36,7 +36,7 @@ public class DevelopmentSecurityConfiguration extends WebSecurityConfigurerAdapt
         // mahdollisuus kaikille.
         http
         .authorizeRequests()
-            .antMatchers("/tili/uusi").permitAll()
+            .antMatchers("/uusitili").permitAll()
             .anyRequest().authenticated()
             .and()
         .formLogin()

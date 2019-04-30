@@ -27,4 +27,6 @@ public class Kaveripyynto extends AbstractPersistable<Long>{
     private Kayttaja kohde;
     
     private Date aika;
+    
+    private boolean vastattu;
 }

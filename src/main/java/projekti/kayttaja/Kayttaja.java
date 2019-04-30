@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.jpa.domain.AbstractPersistable;
+import projekti.linkki.Linkki;
 import projekti.kaveripyynto.Kaveripyynto;
 import projekti.kuva.Kuva;
 import projekti.kuvaAlbumi.KuvaAlbumi;
@@ -31,6 +32,8 @@ public class Kayttaja extends AbstractPersistable<Long> {
     private Tili tili;
     
     private String nimi, kuvaus;
+    
+    private String kaveripyyntoLinkki;
     
     @OneToOne
     private Kuva profiilikuva;

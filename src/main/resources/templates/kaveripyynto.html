@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="fi">
+
+    
+<head th:replace="fragments/layout :: header">
+</head>
+<body>
+
+    <div th:replace="fragments/layout :: jumbotron">
+    </div>
+
+    <nav th:replace="fragments/layout :: navigaatio">
+    </nav>
+
+    <div class="container" style="margin-top:30px">
+      <div class="row">
+        <div class="col-sm-8 mx-auto">
+          
+          <div tiles:fragment="content">
+            
+        
+            <div class="col-sm-8 mx-auto">
+
+                Kaveripyyntö käyttäjälle <span th:text="${kayttaja}"> </span> lähetetty.
+
+            </div>
+</div>
+        </div>
+      </div>
+    </div>
+
+<div th:replace="fragments/layout :: footer">
+</div>
+
+</body>
+</html>

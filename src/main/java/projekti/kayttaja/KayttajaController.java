@@ -19,7 +19,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import projekti.Linkki;
+import projekti.HaeNavigointi;
+import projekti.linkki.Linkki;
 import projekti.tili.Tili;
 import projekti.tili.TiliRepository;
 
@@ -30,6 +31,9 @@ import projekti.tili.TiliRepository;
 
 @Controller
 public class KayttajaController {
+    
+    @Autowired
+    HaeNavigointi haeNavigointi;
     
     @Autowired
     TiliRepository tiliRepository;
@@ -53,27 +57,20 @@ public class KayttajaController {
     @GetMapping("/kayttaja/{kayttajatunnus}")
     public String getKayttajaByKayttajatunnus(Model model, @PathVariable String kayttajatunnus) { 
         Tili tili = tiliRepository.findByKayttajatunnus(kayttajatunnus);
-        
-        
-        model.addAttribute("etusivuKuvaus", "Profiili");
-        model.addAttribute("etusivuLinkki", "/kayttaja/" + tili.getKayttajatunnus() + "/");
-        
-        List<Linkki> navigointi = new ArrayList<>();
-        navigointi.add(new Linkki("Haku", "/kayttaja/" + tili.getKayttajatunnus() + "/haku"));
-        navigointi.add(new Linkki("Kaveripyynnöt", "/kayttaja/" + tili.getKayttajatunnus() + "/kaveripyynnöt"));
-        navigointi.add(new Linkki("Kuva-albumi", "/kayttaja/" + tili.getKayttajatunnus() + "/albumi"));
-        navigointi.add(new Linkki("Seinä", "/kayttaja/" + tili.getKayttajatunnus() + "/seina"));
-        navigointi.add(new Linkki("Kirjaudu ulos", "/kirjaudu?logout"));
-        
+        haeNavigointi.hae(model, tili);
         
         
         
         //kuvaus minusta
         model.addAttribute("kuvaus", tili.getKayttaja().getKuvaus());
         
+        model.addAttribute("nimi", tili.getKayttaja().getNimi());
         
         
-        model.addAttribute("navigointi", navigointi);
+        
+        model.addAttribute("vaihdaNimi", new Linkki("Vaihda nimi", "/kayttaja/" + tili.getKayttajatunnus() + "/nimi"));
+        
+        model.addAttribute("vaihdaKuvaus", new Linkki("Vaihda kuvaus", "/kayttaja/" + tili.getKayttajatunnus() + "/kuvaus"));
         
         
         
@@ -97,5 +94,14 @@ public class KayttajaController {
         
 
         return "redirect:/kayttaja";
+    }
+    
+    @GetMapping("/kayttaja/{kayttajatunnus}/kaverit")
+    public String getKayttajaByKayttajatunnusKaverit(Model model, @PathVariable String kayttajatunnus) {
+        Tili tili = tiliRepository.findByKayttajatunnus(kayttajatunnus);
+        haeNavigointi.hae(model, tili);
+        
+        model.addAttribute("kaverit", tili.getKayttaja().getKaverit());
+        return "kaverit";
     }
 }

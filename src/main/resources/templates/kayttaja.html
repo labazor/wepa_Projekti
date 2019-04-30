@@ -1,71 +1,39 @@
 <!DOCTYPE html>
 <html lang="fi">
-<head>
-  <title>Sosiaalinen Media</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-  <style>
-  .fakeimg {
-    height: 200px;
-    background: #aaa;
-  }
-  </style>
+
+    
+<head th:replace="fragments/layout :: header">
 </head>
 <body>
 
-<div class="jumbotron text-center" style="margin-bottom:0">
-  <h1>Sosiaalinen media</h1>
-  <p>Yksinkertainen kuva ja keskustelusovellus</p> 
-</div>
-
-<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-  <a class="navbar-brand" th:text="${etusivuKuvaus}" th:href="${etusivuLinkki}">Seinä</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="collapsibleNavbar">
-    <ul class="navbar-nav">
-      <li th:each="linkki : ${navigointi}" class="nav-item" >
-          <a th:text="${linkki.kuvaus}" class="nav-link" th:href="${linkki.linkki}">Link</a>
-        
-    </li>
-         
-    </ul>
-  </div>  
-</nav>
-
-<div class="container" style="margin-top:30px">
-  <div class="row">
-    <div class="col-sm-4">
-      <h2>Tietoa minusta</h2>
-      <h5>Kuva minusta:</h5>
-      <div class="fakeimg">Profiilikuva</div>
-      <p th:text="${kuvaus}">Tekstiä minusta</p>
-      
-      <hr class="d-sm-none">
+    <div th:replace="fragments/layout :: jumbotron">
     </div>
-    <div class="col-sm-8">
-      <h2>TITLE HEADING</h2>
-      <h5>Title description, Dec 7, 2017</h5>
-      <div class="fakeimg">Fake Image</div>
-      <p>Some text..</p>
-      <p>Sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
-      <br>
-      <h2>TITLE HEADING</h2>
-      <h5>Title description, Sep 2, 2017</h5>
-      <div class="fakeimg">Fake Image</div>
-      <p>Some text..</p>
-      <p>Sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
-    </div>
-  </div>
-</div>
 
-<div class="jumbotron text-center" style="margin-bottom:0">
-  <p>Footer</p>
+    <nav th:replace="fragments/layout :: navigaatio">
+    </nav>
+
+    <div class="container" style="margin-top:30px">
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="fakeimg">Profiilikuva</div>
+
+          <hr class="d-sm-none">
+        </div>
+        <div class="col-sm-8">
+          <h6>Nimi</h6>
+          <p th:text="${nimi}">Nimi</p>
+          <a th:text="${vaihdaNimi.kuvaus}" th:href="${vaihdaNimi.linkki}">Link</a>
+          <hr>
+          <h6>Kuvaus</h6>
+          <p th:text="${kuvaus}">Kuvaus</p>
+          <a th:text="${vaihdaKuvaus.kuvaus}" th:href="${vaihdaKuvaus.linkki}">Link</a>
+
+
+        </div>
+      </div>
+    </div>
+
+<div th:replace="fragments/layout :: footer">
 </div>
 
 </body>
