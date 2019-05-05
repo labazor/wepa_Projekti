@@ -7,6 +7,7 @@ package projekti.kaveripyynto;
 
 import java.sql.Date;
 import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -48,16 +49,20 @@ public class KaveripyyntoController {
     public String lahetaKaveripyynto(Model model, @PathVariable String kaverinKayttajatunnus) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String kayttajatunnus = auth.getName();
-        
         Tili tili = tiliRepository.findByKayttajatunnus(kayttajatunnus);
         haeNavigointi.hae(model, tili);
         
         Tili oma = tiliRepository.findByKayttajatunnus(kayttajatunnus);
         Tili kaveri = tiliRepository.findByKayttajatunnus(kaverinKayttajatunnus);
         
-        java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
+        Kaveripyynto kaveripyynto = new Kaveripyynto(kayttajaRepository.getByTili(oma), kayttajaRepository.getByTili(kaveri), LocalDateTime.now(), false);
         
-        Kaveripyynto kaveripyynto = new Kaveripyynto(kayttajaRepository.getByTili(oma), kayttajaRepository.getByTili(kaveri), date, false);
+        for (Kaveripyynto kaveripyynto1 : kaveripyyntoRepository.findAll()) {
+            if (kaveripyynto1.getPyytaja().equals(kaveripyynto.getPyytaja()) && kaveripyynto1.getKohde().equals(kaveripyynto.getKohde())) {
+                return "kaveripyyntoolemassa";
+            }
+        }
+        
         kaveripyyntoRepository.save(kaveripyynto);
         
         Kayttaja kaveriKayttaja = kayttajaRepository.getByTili(kaveri);

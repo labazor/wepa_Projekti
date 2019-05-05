@@ -2,6 +2,7 @@ package projekti.kaveripyynto;
 
 import projekti.kayttaja.Kayttaja;
 import java.sql.Date;
+import java.time.LocalDateTime;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
@@ -26,7 +27,7 @@ public class Kaveripyynto extends AbstractPersistable<Long>{
     @ManyToOne
     private Kayttaja kohde;
     
-    private Date aika;
+    private LocalDateTime aika;
     
     private boolean vastattu;
 }

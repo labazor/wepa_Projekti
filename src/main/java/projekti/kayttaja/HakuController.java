@@ -11,8 +11,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import projekti.HaeNavigointi;
-import projekti.linkki.Linkki;
+import projekti.Linkki;
+import projekti.kuva.Kuva;
+import projekti.kuva.KuvaRepository;
 import projekti.tili.Tili;
 import projekti.tili.TiliRepository;
 
@@ -30,11 +33,17 @@ public class HakuController {
     TiliRepository tiliRepository;
     
     @Autowired
+    KuvaRepository kuvaRepository;
+    
+    @Autowired
     KayttajaRepository kayttajaRepository;
     
     @GetMapping("/kayttaja/{kayttajatunnus}/haku")
     public String getHaku(Model model, @PathVariable String kayttajatunnus) {
-        Tili tili = tiliRepository.findByKayttajatunnus(kayttajatunnus);
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String kayttaja = auth.getName();
+        
+        Tili tili = tiliRepository.findByKayttajatunnus(kayttaja);
         
         haeNavigointi.hae(model, tili);
         
@@ -53,7 +62,10 @@ public class HakuController {
     
     @GetMapping("/kayttaja/{kayttajatunnus}/haku/{hakusana}")
     public String getHaku(Model model, @PathVariable String kayttajatunnus, @PathVariable String hakusana) {
-        Tili tili = tiliRepository.findByKayttajatunnus(kayttajatunnus);
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String kayttajatunn = auth.getName();
+        
+        Tili tili = tiliRepository.findByKayttajatunnus(kayttajatunn);
         
         haeNavigointi.hae(model, tili);
         
@@ -61,7 +73,7 @@ public class HakuController {
         List<Kayttaja> palautettavat = new ArrayList<>();
         
         for (Kayttaja kayttaja : hakutulokset) {
-            if (tili.getKayttaja() != kayttaja) {
+            if (tili.getKayttaja() != kayttaja && !tili.getKayttaja().getKaverit().contains(kayttaja)) {
                 palautettavat.add(kayttaja);
             }
         }
@@ -69,6 +81,23 @@ public class HakuController {
         model.addAttribute("palautettavat", palautettavat);
         
         return "hakutulokset";
+    }
+    
+    @GetMapping(path = "/profiilikuva/{id}", produces = "image/*")
+    @ResponseBody
+    public byte[] getImage(@PathVariable Long id) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String kayttajatunnus = auth.getName();
+        
+        
+        Kuva k = kuvaRepository.getOne(id);
+        
+        if (k != null) {
+            return k.getTiedosto();
+            
+        }
+        return null;
+        
     }
 
 }

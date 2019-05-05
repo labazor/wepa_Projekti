@@ -1,4 +1,4 @@
-package projekti.seina;
+package projekti.kommentti;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -6,6 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
  *
  * @author Lassi Puurunen
  */
-public interface SeinaRepository extends JpaRepository<Seina, Long>{
+public interface KommenttiRepository extends JpaRepository<Kommentti, Long>{
     
 }

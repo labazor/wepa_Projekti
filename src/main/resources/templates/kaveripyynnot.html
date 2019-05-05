@@ -24,8 +24,8 @@
                     <p>Ei uusia kaveripyyntöjä.</p>
                 </div>
                 
-                <ul>
-                    <li th:each="kaveripyynto : ${vastaamattomat}">
+                <div>
+                    <div th:each="kaveripyynto : ${vastaamattomat}">
                         <div>
                             <span th:text="${kaveripyynto.pyytaja.nimi}">Nimi</span>
                         </div>
@@ -33,7 +33,7 @@
                             <span th:text="${kaveripyynto.pyytaja.kuvaus}">Kuvaus</span>
                         </div>
                         <div>
-                            <span th:text="${kaveripyynto.aika}">Päiväys</span>
+                            <span th:text="${#temporals.format(kaveripyynto.aika, 'dd.MM.yyyy HH:mm')}">Päiväys</span>
                         </div>
                         <div>
                             <a th:href="@{'/kaveripyynto/hyvaksy/' + ${kaveripyynto.id}}">Hyväksy</a>
@@ -41,8 +41,8 @@
                         <div>
                             <a th:href="@{'/kaveripyynto/hylkaa/' + ${kaveripyynto.id}}">Hylkää</a>
                         </div>
-                    </li>
-                </ul>
+                    </div>
+                </div>
             </div>
 </div>
         </div>

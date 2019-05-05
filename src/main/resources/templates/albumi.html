@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="fi">
+
+    
+<head th:replace="fragments/layout :: header">
+</head>
+<body>
+
+    <div th:replace="fragments/layout :: jumbotron">
+    </div>
+
+    <nav th:replace="fragments/layout :: navigaatio">
+    </nav>
+
+    <div class="container" style="margin-top:30px">
+      <div class="row">
+        <div class="col-sm-8 mx-auto">
+          
+            <div th:if="${#lists.isEmpty(albumi)}">
+                <p>Albumissa ei ole vielä kuvia</p>
+            </div>
+            
+            <div>
+                <a th:href="${lisaaKuva}">Lisää kuva</a>
+            </div>
+                
+                                 
+            <div class="row">
+                        <div th:each="kuva : ${albumi}" >
+                            <div class="col-md-4">
+                                <div class="thumbnail">
+                        
+                                    <div>
+                                        <a th:href="@{kuva/{id}/nayta(id=${kuva.id})}">
+                                        <img class ="img-responsive img-thumbnail" th:src="@{kuva/{id}(id=${kuva.id})}"/>
+                                        </a>
+                                    </div>
+                                    <div class="caption">
+                                        <p th:if="${#strings.isEmpty(kuva.kuvaus)}">
+                                           Ei vielä kuvausta
+                                        </p>
+                                        <p th:text="${kuva.kuvaus}">Lorem ipsum...</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+            </div>    
+                
+
+          
+
+
+        </div>
+      </div>
+    </div>
+
+<div th:replace="fragments/layout :: footer">
+</div>
+
+</body>
+</html>

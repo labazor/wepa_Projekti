@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
-import projekti.linkki.Linkki;
 import projekti.tili.Tili;
 
 /**
@@ -25,11 +24,11 @@ public class HaeNavigointi {
         
         List<Linkki> navigointi = new ArrayList<>();
         navigointi.add(new Linkki("Haku", "/kayttaja/" + tili.getKayttajatunnus() + "/haku"));
-        navigointi.add(new Linkki("Kaverit", "/kayttaja/" + tili.getKayttajatunnus() + "/kaverit"));
         navigointi.add(new Linkki("Kaveripyynnöt", "/kayttaja/" + tili.getKayttajatunnus() + "/kaveripyynnot"));
+        navigointi.add(new Linkki("Kaverit", "/kayttaja/" + tili.getKayttajatunnus() + "/kaverit"));
         navigointi.add(new Linkki("Kuva-albumi", "/kayttaja/" + tili.getKayttajatunnus() + "/albumi"));
         navigointi.add(new Linkki("Seinä", "/kayttaja/" + tili.getKayttajatunnus() + "/seina"));
-        navigointi.add(new Linkki("Kirjaudu ulos", "/kirjaudu?logout"));
+        navigointi.add(new Linkki("Kirjaudu ulos", "/logout"));
         model.addAttribute("navigointi", navigointi);
     }
     

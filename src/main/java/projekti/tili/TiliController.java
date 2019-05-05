@@ -16,6 +16,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import projekti.Linkki;
 import projekti.kayttaja.Kayttaja;
 import projekti.kayttaja.KayttajaRepository;
+import projekti.kuvaAlbumi.KuvaAlbumi;
+import projekti.kuvaAlbumi.KuvaAlbumiRepository;
+import projekti.seina.Seina;
 import projekti.tili.Tili;
 
 /**
@@ -32,35 +35,47 @@ public class TiliController {
     KayttajaRepository kayttajaRepository;
     
     @Autowired
+    KuvaAlbumiRepository albumiRepository;
+    
+    @Autowired
     PasswordEncoder passwordEncoder;
     
     @GetMapping("/kirjaudu")
     public String login(Model model) {
-        model.addAttribute("linkki", new Linkki("Luo uusi tili", "/tili/uusi"));
+        model.addAttribute("linkki", new Linkki("Luo uusi tili", "/uusitili"));
         return "kirjaudu";
     }
     
-    @GetMapping("/tili/uusi")
+    @GetMapping("/uusitili")
     public String uusi() {
         return "uusitili";
     }
     
-    @PostMapping("/tili/uusi")
+    @PostMapping("/uusitili")
     public String add(@RequestParam String nimi, @RequestParam String kayttajatunnus, @RequestParam String salasana) {
         if (tiliRepository.findByKayttajatunnus(kayttajatunnus) != null) {
             return "redirect:/kayttaja";
         }
         
-        Kayttaja kayttaja = new Kayttaja();
+        Tili tili = new Tili(kayttajatunnus, passwordEncoder.encode(salasana), new Kayttaja());
+        Kayttaja kayttaja = tili.getKayttaja();
+        
+        kayttajaRepository.save(kayttaja);
+        tiliRepository.save(tili);
+        
+        kayttaja.setTili(tili);
+        
         kayttaja.setNimi(nimi);
+        
+        kayttaja.setKaveripyyntoLinkki("/kaveripyynto/" + kayttajatunnus);
+        
+        kayttaja.setKuvaAlbumi(new KuvaAlbumi());
+        
+        KuvaAlbumi albumi = kayttaja.getKuvaAlbumi();
+                
+        albumiRepository.save(albumi);
         kayttajaRepository.save(kayttaja);
         
-        Tili a = new Tili(kayttajatunnus, passwordEncoder.encode(salasana), kayttaja);
-        
-        tiliRepository.save(a);
-        
-        kayttaja.setTili(tiliRepository.findByKayttajatunnus(kayttajatunnus));
-        kayttajaRepository.save(kayttaja);
         
         return "redirect:/kayttaja";
     }

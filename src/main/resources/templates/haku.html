@@ -16,20 +16,20 @@
       <div class="row">
         <div class="col-sm-8 mx-auto">
           
-          <div tiles:fragment="content">
-            <form name="f" method="POST" th:action="@{/haku}">
-                <fieldset>
-                    <legend>Haku</legend>
-                    <div class="">
-                        <input type="text" name="hakusana"/>
-                    </div>
-                    
-                    <div class="form-actions" >
-                        <button class="btn-success" type="submit">Hae</button>
-                    </div>
-                </fieldset>
-            </form>
-        </div>
+            <div tiles:fragment="content">
+                <form name="f" method="POST" th:action="@{/haku}">
+                    <fieldset>
+                        <legend>Haku</legend>
+                        <div class="">
+                            <input type="text" name="hakusana"/>
+                        </div>
+
+                        <div class="form-actions" >
+                            <button class="btn-success" type="submit">Hae</button>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
 
 
         </div>

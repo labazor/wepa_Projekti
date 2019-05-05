@@ -14,29 +14,36 @@
 
     <div class="container" style="margin-top:30px">
       <div class="row">
-        <div class="col-sm-8 mx-auto">
+        <div class = "col-sm-8 mx-auto">
           
-          <div tiles:fragment="content">
             
         
-            <div class="col-sm-8 mx-auto">
                 <div th:if="${#lists.isEmpty(kaverit)}">
                     <p>Ei vielä kavereita.</p>
                     <p>Käytä hakua lähettääksesi kaveripyyntöjä.</p>
                 </div>
                 
-                <ul>
-                    <li th:each="kayttaja : ${kaverit}">
-                        <div>
-                            <span th:text="${kayttaja.nimi}">Nimi</span>
+                
+                    <div class ="col-sm-8 row mx-auto" style="margin-bottom:30px" th:each="kayttaja : ${kaverit}">
+                        <div class="col-sm-6">
+                            <a th:href ="@{/kayttaja/{kayttaja}/kaveri/{kaveri}(kayttaja=${kayttajatunnus},kaveri=${kayttaja.tili.kayttajatunnus})}">
+                            <img th:unless="${kayttaja.profiilikuva} == null" class ="img-responsive" style="max-width:100%" th:src="@{/profiilikuva/{id}(id=${kayttaja.profiilikuva.id})}"/>
+                            </a>
+                            <div th:if="${kayttaja.profiilikuva} == null" class ="img-responsive fakeimg" style="max-width:100%">Ei vielä profiilikuvaa</div>
                         </div>
                         <div>
+                            <a th:href ="@{/kayttaja/{kayttaja}/kaveri/{kaveri}(kayttaja=${kayttajatunnus},kaveri=${kayttaja.tili.kayttajatunnus})}">
+                            <span th:text="${kayttaja.nimi}">Nimi</span>
+                            </a>
+                            <br>
+                            <span th:if="${#strings.isEmpty(kayttaja.kuvaus)}">Ei vielä kuvausta</span>
+                            <br>
                             <span th:text="${kayttaja.kuvaus}">Kuvaus</span>
                         </div>
-                    </li>
-                </ul>
-            </div>
-</div>
+                      
+                    </div>
+                
+
         </div>
       </div>
     </div>

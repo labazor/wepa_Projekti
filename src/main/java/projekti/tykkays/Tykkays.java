@@ -1,15 +1,14 @@
-package projekti.kuvaAlbumi;
+package projekti.tykkays;
 
-import projekti.kayttaja.Kayttaja;
-import java.util.List;
+import java.sql.Date;
+import java.time.LocalDateTime;
 import javax.persistence.Entity;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.jpa.domain.AbstractPersistable;
-import projekti.kuva.Kuva;
+import projekti.kayttaja.Kayttaja;
 
 /**
  *
@@ -20,9 +19,11 @@ import projekti.kuva.Kuva;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class KuvaAlbumi extends AbstractPersistable<Long> {
+public class Tykkays extends AbstractPersistable<Long> {
     
-    @OneToMany
-    private List<Kuva> kuvat;
     
+    private LocalDateTime aika;
+    
+    @OneToOne
+    private Kayttaja tykkaaja;
 }

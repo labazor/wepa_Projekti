@@ -7,6 +7,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -15,6 +16,7 @@ public class DevelopmentSecurityConfiguration extends WebSecurityConfigurerAdapt
 
     @Autowired
     private CustomUserDetailsService userDetailsService;
+    
 
 
     // @Override
@@ -40,7 +42,15 @@ public class DevelopmentSecurityConfiguration extends WebSecurityConfigurerAdapt
             .anyRequest().authenticated()
             .and()
         .formLogin()
-                .loginPage("/kirjaudu").permitAll();
+            .loginPage("/kirjaudu")
+                .permitAll()
+            .and()
+        .logout()
+                .invalidateHttpSession(true)
+                      .clearAuthentication(true)
+                      .deleteCookies("JSESSIONID","USER")
+                      .permitAll();
+        
     }
     
     @Autowired

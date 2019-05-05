@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="fi">
+
+    
+<head th:replace="fragments/layout :: header">
+</head>
+<body>
+
+    <div th:replace="fragments/layout :: jumbotron">
+    </div>
+
+    <nav th:replace="fragments/layout :: navigaatio">
+    </nav>
+
+    <div class="container" style="margin-top:30px">
+      <div class="row">
+        <div class="col-sm-8 mx-auto">
+          
+          <div tiles:fragment="content">
+            <form name="f" method="POST" th:action="@{/vaihdakuvaus}">
+                <fieldset>
+                    <legend>Vaihda kuvaus</legend>
+                    <p th:if="${#strings.isEmpty(kuvaus)}">Ei vielä kuvausta</p>
+                    <p th:text="${kuvaus}">
+                    <div class="">
+                        <input type="text" name="kuvaus"/>
+                    </div>
+                    
+                    <div class="form-actions" >
+                        <button class="btn-success" type="submit">Vaihda kuvaus</button>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+
+
+        </div>
+      </div>
+    </div>
+
+<div th:replace="fragments/layout :: footer">
+</div>
+
+</body>
+</html>

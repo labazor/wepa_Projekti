@@ -18,18 +18,12 @@ import projekti.viesti.Viesti;
  * @author Lassi Puurunen
  */
 
-@Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class Seina extends AbstractPersistable<Long>{
+public class Seina{
     
-    @OneToOne(mappedBy = "seina")
     private Kayttaja omistaja;
     
-    @OneToMany(mappedBy = "id")
     private List<Viesti> viestit;
-    
-    @OneToMany(mappedBy = "id")
-    private List<Kuva> kuvat;
 }

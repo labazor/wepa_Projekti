@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="fi">
+
+    
+<head th:replace="fragments/layout :: header">
+</head>
+<body>
+    <div th:replace="fragments/layout :: jumbotron">
+    </div>
+
+    <nav th:replace="fragments/layout :: navigaatio">
+    </nav>
+
+    <div class="container" style="margin-top:30px">
+      <div class="row">
+        <div class="col-sm-8 mx-auto">
+
+            <div>
+                <form name="f" method="POST" th:action="@{/kirjoitaseinalle}">
+                    <fieldset>
+                        <legend>Lähetä uusi viesti</legend>
+                        <div class="">
+                            <input type="text" name="viesti"/>
+                        </div>
+
+                        <div class="form-actions" >
+                            <button class="btn-success" type="submit">Lähetä</button>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+            <hr>
+            <p>Näet omien viestiesi lisäksi kavereidesi omille seinilleen kirjoittamat viestit</p>
+            <hr>
+            <div th:each="viesti : ${viestit}">
+                <div>
+                    <span th:text="${viesti.lahettaja.nimi}"></span>
+                    <span>kirjoitti</span>
+                    <span th:text="${#temporals.format(viesti.lahetysaika, 'dd.MM.yyyy HH:mm')}"></span>
+                </div>
+                <br>
+                <div>
+                    <p th:text="${viesti.sisalto}"></p>
+                </div>
+                <div>
+                    <p>Tykkäyksiä <span th:text="${#lists.size(viesti.tykkaykset)}"></span>
+                    
+                    <a th:href="@{/tykkaa/viesti/{id}(id=${viesti.id})}">Tykkää</a>
+                </div>
+                
+                <div>
+                    <p>Kommentit</p>
+                    <p th:each="kommentti : ${viesti.kommentit}">
+                        <span th:text="${kommentti.teksti}"></span>
+                        <span th:text="${kommentti.kommentoija.nimi}"></span>
+                        <span th:text="${#temporals.format(kommentti.aika, 'dd.MM.yyyy HH:mm')}"></span>
+                    </p>
+                </div>
+                
+                
+                <div>
+                    
+                    <form method="POST" th:action="@{/kommentoiviesti/{id}(id=${viesti.id})}">
+                    <fieldset>
+                        <div class="">
+                            <input type="text" name="kommentti"/>
+                        </div>
+
+                        <div class="form-actions" >
+                            <button class="btn-success" type="submit">Kommentoi</button>
+                        </div>
+                    </fieldset>
+                </form>
+                </div>
+                
+                
+                
+                <hr>
+            </div>
+          
+
+
+        </div>
+      </div>
+    </div>
+
+<div th:replace="fragments/layout :: footer">
+</div>
+
+</body>
+</html>

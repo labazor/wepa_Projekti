@@ -9,7 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.jpa.domain.AbstractPersistable;
-import projekti.linkki.Linkki;
+import projekti.Linkki;
 import projekti.kaveripyynto.Kaveripyynto;
 import projekti.kuva.Kuva;
 import projekti.kuvaAlbumi.KuvaAlbumi;
@@ -45,15 +45,9 @@ public class Kayttaja extends AbstractPersistable<Long> {
     private List<Kaveripyynto> kaveripyynnot;
     
     @OneToOne
-    private Seina seina;
-    
-    @OneToOne
     private KuvaAlbumi kuvaAlbumi;
     
     @OneToMany
     private List<Viesti> viestit;
-    
-    @OneToMany
-    private List<Kuva> kuvat;
 
 }

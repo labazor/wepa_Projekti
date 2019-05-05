@@ -20,7 +20,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import projekti.HaeNavigointi;
-import projekti.linkki.Linkki;
+import projekti.Linkki;
+import projekti.kuva.Kuva;
 import projekti.tili.Tili;
 import projekti.tili.TiliRepository;
 
@@ -56,7 +57,10 @@ public class KayttajaController {
     
     @GetMapping("/kayttaja/{kayttajatunnus}")
     public String getKayttajaByKayttajatunnus(Model model, @PathVariable String kayttajatunnus) { 
-        Tili tili = tiliRepository.findByKayttajatunnus(kayttajatunnus);
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String kayttaja = auth.getName();
+        
+        Tili tili = tiliRepository.findByKayttajatunnus(kayttaja);
         haeNavigointi.hae(model, tili);
         
         
@@ -66,7 +70,16 @@ public class KayttajaController {
         
         model.addAttribute("nimi", tili.getKayttaja().getNimi());
         
+        Kuva kuva = tili.getKayttaja().getProfiilikuva();
         
+        if (kuva == null) {
+            
+            model.addAttribute("kuva", new Kuva());
+        } else {
+            model.addAttribute("kuva", tili.getKayttaja().getProfiilikuva());
+        }
+        
+        model.addAttribute("kayttaja", tili.getKayttajatunnus());
         
         model.addAttribute("vaihdaNimi", new Linkki("Vaihda nimi", "/kayttaja/" + tili.getKayttajatunnus() + "/nimi"));
         
@@ -77,31 +90,86 @@ public class KayttajaController {
         return "kayttaja";
     }
     
-    @PostMapping("/kayttaja")
-    public String addTili(@RequestParam String kayttajatunnus, @RequestParam String salasana, @RequestParam String nimi) {
-        if (tiliRepository.findByKayttajatunnus(kayttajatunnus) != null) {
-            return "redirect:/kayttaja";
-        }
+    @GetMapping("/kayttaja/{kayttajatunnus}/nimi")
+    public String vaihdaNimi(Model model, @PathVariable String kayttajatunnus) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String kayttaja = auth.getName();
+        Tili tili = tiliRepository.findByKayttajatunnus(kayttaja);
+        haeNavigointi.hae(model, tili);
         
-        Tili a = new Tili(kayttajatunnus, passwordEncoder.encode(salasana), new Kayttaja());
-        kayttajaRepository.save(a.getKayttaja());
-        tiliRepository.save(a);
+        model.addAttribute("nimi", tili.getKayttaja().getNimi());
         
-        Kayttaja k = a.getKayttaja();
+        return "nimi";
+    }
+    
+    @GetMapping("/kayttaja/{kayttajatunnus}/kuvaus")
+    public String vaihdaKuvaus(Model model, @PathVariable String kayttajatunnus) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String kayttaja = auth.getName();
+        Tili tili = tiliRepository.findByKayttajatunnus(kayttaja);
+        haeNavigointi.hae(model, tili);
+        
+        model.addAttribute("kuvaus", tili.getKayttaja().getKuvaus());
+        
+        
+        return "kuvaus";
+    }
+    
+    @PostMapping("/vaihdanimi") 
+    public String vaihdanimi(@RequestParam String nimi) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String kayttaja = auth.getName();
+        
+        Tili tili = tiliRepository.findByKayttajatunnus(kayttaja);
+        Kayttaja k = tili.getKayttaja();
         k.setNimi(nimi);
-        k.setTili(a);
         kayttajaRepository.save(k);
         
-
-        return "redirect:/kayttaja";
+        return "redirect:/kayttaja/" + kayttaja;
+    }
+    
+    @PostMapping("/vaihdakuvaus") 
+    public String vaihdakuvaus(@RequestParam String kuvaus) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String kayttaja = auth.getName();
+        
+        Tili tili = tiliRepository.findByKayttajatunnus(kayttaja);
+        Kayttaja k = tili.getKayttaja();
+        k.setKuvaus(kuvaus);
+        kayttajaRepository.save(k);
+        
+        return "redirect:/kayttaja/" + kayttaja;
     }
     
     @GetMapping("/kayttaja/{kayttajatunnus}/kaverit")
-    public String getKayttajaByKayttajatunnusKaverit(Model model, @PathVariable String kayttajatunnus) {
-        Tili tili = tiliRepository.findByKayttajatunnus(kayttajatunnus);
+    public String getKayttajaKaverit(Model model, @PathVariable String kayttajatunnus) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String kayttaja = auth.getName();
+        Tili tili = tiliRepository.findByKayttajatunnus(kayttaja);
         haeNavigointi.hae(model, tili);
         
-        model.addAttribute("kaverit", tili.getKayttaja().getKaverit());
+        List<Kayttaja> haettu = tili.getKayttaja().getKaverit();
+        model.addAttribute("kayttaja", kayttaja);
+        model.addAttribute("kaverit", haettu);
         return "kaverit";
+    }
+    
+    @GetMapping("/kayttaja/{kayttajatunnus}/kaveri/{kaveri}")
+    public String getKaveri(Model model, @PathVariable String kayttajatunnus, @PathVariable String kaveri) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String kayttaja = auth.getName();
+        Tili tili = tiliRepository.findByKayttajatunnus(kayttaja);
+        haeNavigointi.hae(model, tili);
+        
+        Tili kaverinTili = new Tili();
+        if (kayttajatunnus.equals(kayttaja)) {
+            kaverinTili = tiliRepository.findByKayttajatunnus(kaveri);
+        }
+        
+        model.addAttribute("kaveri", kaverinTili.getKayttaja());
+        model.addAttribute("albumi", kaverinTili.getKayttaja().getKuvaAlbumi().getKuvat());
+        
+        return "kaveri";
+        
     }
 }

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="fi">
+
+    
+<head th:replace="fragments/layout :: header">
+</head>
+<body>
+
+    <div th:replace="fragments/layout :: jumbotron">
+    </div>
+
+    <nav th:replace="fragments/layout :: navigaatio">
+    </nav>
+
+    <div class="container col-sm-7" style="margin-top:30px">
+        <div class="row">
+            
+
+                <div class="col-sm-8">
+
+                    <img class ="img-responsive" style="max-width:100%" th:src="@{/kayttaja/{kayttaja}/kuva/{id}(kayttaja=${kayttaja},id=${kuva.id})}"/>
+                
+                </div>
+            <div class="col-sm-4">
+                <div class="caption">
+                    <p th:if="${#strings.isEmpty(kuva.kuvaus)}">
+                        Ei vielä kuvausta
+                    </p>
+                    <p th:text="${kuva.kuvaus}">Lorem ipsum...</p>
+                </div>
+                <div th:if="${vieras} == false">
+                    <form name="f" method="POST" th:action="@{/kuva/{id}/muokkaaKuvausta(id=${kuva.id})}">
+                        <fieldset>
+                            <legend>Muokkaa kuvausta</legend>
+                    <div class="">
+                            <input type="text" name="kuvaus"/>
+                    </div>
+
+                    <div class="form-actions" >
+                        <button class="btn-success" type="submit">Muokkaa</button>
+                    </div>
+                        </fieldset>
+                    </form>
+                </div>
+
+                <div th:if="${vieras} == false">
+                    <a th:href="${poistoLinkki}">Poista kuva</a>
+                </div>
+                <div th:if="${vieras} == false">
+                    <a th:href="${profiilikuvaksiLinkki}">Aseta profiilikuvaksi</a>
+                </div>
+                
+                <br>
+                
+                <div>
+                    <p>Tykkäyksiä <span th:text="${#lists.size(kuva.tykkaykset)}"></span>
+                    
+                    <a th:href="@{/tykkaa/kuva/{id}(id=${kuva.id})}">Tykkää</a>
+                </div>
+                
+                
+                <div>
+                    <p>Kommentit</p>
+                    <p th:each="kommentti : ${kuva.kommentit}">
+                        <span th:text="${kommentti.teksti}"></span>
+                        <span th:text="${kommentti.kommentoija.nimi}"></span>
+                        <span th:text="${#temporals.format(kommentti.aika, 'dd.MM.yyyy HH:mm')}"></span>
+                    </p>
+                </div>
+                
+                
+                <div>
+                    
+                    <form method="POST" th:action="@{/kommentoikuva/{id}(id=${kuva.id})}">
+                    <fieldset>
+                        <div class="">
+                            <input type="text" name="kommentti"/>
+                        </div>
+
+                        <div class="form-actions" >
+                            <button class="btn-success" type="submit">Kommentoi</button>
+                        </div>
+                    </fieldset>
+                </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    
+   
+                
+
+         
+
+<div th:replace="fragments/layout :: footer">
+</div>
+
+</body>
+</html>

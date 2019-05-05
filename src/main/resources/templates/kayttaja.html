@@ -15,8 +15,8 @@
     <div class="container" style="margin-top:30px">
       <div class="row">
         <div class="col-sm-4">
-          <div class="fakeimg">Profiilikuva</div>
-
+          <img th:unless="${kuva.id} == null" class ="img-responsive" style="max-width:100%" th:src="@{/kayttaja/{kayttaja}/kuva/{id}(kayttaja=${kayttaja},id=${kuva.id})}"/>
+          <div th:if="${kuva.id} == null" class ="img-responsive fakeimg" style="max-width:100%">Ei vielä profiilikuvaa</div>
           <hr class="d-sm-none">
         </div>
         <div class="col-sm-8">
@@ -25,6 +25,9 @@
           <a th:text="${vaihdaNimi.kuvaus}" th:href="${vaihdaNimi.linkki}">Link</a>
           <hr>
           <h6>Kuvaus</h6>
+          <p th:if="${#strings.isEmpty(kuvaus)}">
+            Ei vielä kuvausta
+          </p>
           <p th:text="${kuvaus}">Kuvaus</p>
           <a th:text="${vaihdaKuvaus.kuvaus}" th:href="${vaihdaKuvaus.linkki}">Link</a>
 
