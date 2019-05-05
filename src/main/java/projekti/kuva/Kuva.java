@@ -10,6 +10,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Type;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
+import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 import projekti.kommentti.Kommentti;
 import projekti.kuvaAlbumi.KuvaAlbumi;
@@ -26,8 +30,8 @@ import projekti.tykkays.Tykkays;
 @Data
 public class Kuva extends AbstractPersistable<Long> {
     
-    @Lob
-    @Getter
+    
+    @Type(type = "org.hibernate.type.BinaryType")
     private byte[] tiedosto;
     private String kuvaus;
     
