@@ -14,20 +14,20 @@
 
     <div class="container" style="margin-top:30px">
       <div class="row">
-        <div class="col-sm-8 mx-auto">
+        <div class="col-sm-6 mx-auto">
           
           <div tiles:fragment="content">
-            <form name="f" method="POST" th:action="@{/vaihdakuvaus}">
+            <form class="form-group" name="f" method="POST" th:action="@{/vaihdakuvaus}">
                 <fieldset>
                     <legend>Vaihda kuvaus</legend>
                     <p th:if="${#strings.isEmpty(kuvaus)}">Ei vielä kuvausta</p>
                     <p th:text="${kuvaus}">
                     <div class="">
-                        <input type="text" name="kuvaus"/>
+                        <input class="form-group" type="text" name="kuvaus"/>
                     </div>
                     
                     <div class="form-actions" >
-                        <button class="btn-success" type="submit">Vaihda kuvaus</button>
+                        <button class="btn btn-primary" type="submit">Vaihda kuvaus</button>
                     </div>
                 </fieldset>
             </form>

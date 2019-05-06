@@ -13,28 +13,28 @@
 
     <div class="container" style="margin-top:30px">
       <div class="row">
-        <div class="col-sm-8 mx-auto">
+        <div class="col-sm-6 mx-auto">
 
             <div>
-                <form name="f" method="POST" th:action="@{/kirjoitaseinalle}">
+                <form class="form-group" name="f" method="POST" th:action="@{/kirjoitaseinalle}">
                     <fieldset>
-                        <legend>Lähetä uusi viesti</legend>
-                        <div class="">
-                            <input type="text" name="viesti"/>
+                        <legend>Seinä</legend>
+                        <p>Kirjoita viesti seinälle</p>
+                        <div class="form-group">
+                            <input class="form-control" type="text" name="viesti"/>
                         </div>
 
                         <div class="form-actions" >
-                            <button class="btn-success" type="submit">Lähetä</button>
+                            <button class="btn btn-primary" type="submit">Kirjoita</button>
                         </div>
                     </fieldset>
                 </form>
             </div>
             <hr>
-            <p>Näet omien viestiesi lisäksi kavereidesi omille seinilleen kirjoittamat viestit</p>
-            <hr>
+
             <div th:each="viesti : ${viestit}">
                 <div>
-                    <span th:text="${viesti.lahettaja.nimi}"></span>
+                    <span class="font-weight-bold" th:text="${viesti.lahettaja.nimi}"></span>
                     <span>kirjoitti</span>
                     <span th:text="${#temporals.format(viesti.lahetysaika, 'dd.MM.yyyy HH:mm')}"></span>
                 </div>
@@ -42,36 +42,44 @@
                 <div>
                     <p th:text="${viesti.sisalto}"></p>
                 </div>
-                <div>
+                <div style="margin-left: 30px;">
                     <p>Tykkäyksiä <span th:text="${#lists.size(viesti.tykkaykset)}"></span>
                     
-                    <a th:href="@{/tykkaa/viesti/{id}(id=${viesti.id})}">Tykkää</a>
-                </div>
-                
-                <div>
-                    <p>Kommentit</p>
-                    <p th:each="kommentti : ${viesti.kommentit}">
-                        <span th:text="${kommentti.teksti}"></span>
-                        <span th:text="${kommentti.kommentoija.nimi}"></span>
-                        <span th:text="${#temporals.format(kommentti.aika, 'dd.MM.yyyy HH:mm')}"></span>
-                    </p>
+                    <a class="btn-sm btn-primary" th:href="@{/tykkaa/viesti/{id}(id=${viesti.id})}">Tykkää</a>
                 </div>
                 
                 
-                <div>
+                
+                
+                
+                <div style="margin-top: 10px; margin-left: 30px;">
+                    <p><strong>Kommentit</strong></p>
+                    <div th:each="kommentti : ${viesti.kommentit}">
+                        
+                        <p th:text="${kommentti.teksti}"></p>
+                        <em><span th:text="${kommentti.kommentoija.nimi}"></span>
+                            <span th:text="${#temporals.format(kommentti.aika, 'dd.MM.yyyy HH:mm')}"></span></em>
+                        <hr>
+                    </div>
+                </div>
+                
+                <div style="margin-left: 30px;">
                     
-                    <form method="POST" th:action="@{/kommentoiviesti/{id}(id=${viesti.id})}">
-                    <fieldset>
-                        <div class="">
-                            <input type="text" name="kommentti"/>
+                    <form class="form-inline" method="POST" th:action="@{/kommentoiviesti/{id}(id=${viesti.id})}">
+      
+                        <div class="form-group">
+                            <input class="form-control" type="text" name="kommentti"/>
                         </div>
 
-                        <div class="form-actions" >
-                            <button class="btn-success" type="submit">Kommentoi</button>
-                        </div>
-                    </fieldset>
-                </form>
+
+                        <button class="btn btn-primary" type="submit">Kommentoi</button>
+
+            
+                    </form>
                 </div>
+                
+                
+                
                 
                 
                 

@@ -16,8 +16,8 @@
     <div class="mx-auto">
         
         
-        <div tiles:fragment="content">
-            <form name="f" th:action="@{/kirjaudu}" method="post">               
+        
+            <form class="form-group" name="f" th:action="@{/kirjaudu}" method="post">               
                 <fieldset>
                     <legend>Kirjaudu sisään</legend>
                     <div th:if="${param.error}" class="alert alert-error">    
@@ -26,20 +26,20 @@
                     <div th:if="${param.logout}" class="alert alert-success"> 
                         Olet kirjautunut ulos.
                     </div>
-                    <div>
+                    <div class="form-group">
                         <label for="username">Käyttäjätunnus</label>
-                        <input type="text" id="username" name="username"/>
+                        <input type="text" class="form-control" id="username" name="username"/>
                     </div>
-                    <div>        
+                    <div class="form-group">        
                         <label for="password">Salasana</label>
-                        <input type="password" id="password" name="password"/>
+                        <input type="password" class="form-control" id="password" name="password"/>
                     </div>
                     <div class="form-actions" >
-                        <button class="btn-success" type="submit">Kirjaudu</button>
+                        <button class="btn btn-primary" type="submit">Kirjaudu</button>
                     </div>
                 </fieldset>
             </form>
-        </div>
+        
     
         <div>
             <a class="link" th:href="${linkki.linkki}" th:text="${linkki.kuvaus}">Linkki</a>
