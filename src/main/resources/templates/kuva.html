@@ -29,15 +29,15 @@
                     <p th:text="${kuva.kuvaus}">Lorem ipsum...</p>
                 </div>
                 <div th:if="${vieras} == false">
-                    <form name="f" method="POST" th:action="@{/kuva/{id}/muokkaaKuvausta(id=${kuva.id})}">
+                    <form class="form-group" name="f" method="POST" th:action="@{/kuva/{id}/muokkaaKuvausta(id=${kuva.id})}">
                         <fieldset>
                             <legend>Muokkaa kuvausta</legend>
-                    <div class="">
-                            <input type="text" name="kuvaus"/>
+                    <div class="form-group">
+                            <input class="form-control" type="text" name="kuvaus"/>
                     </div>
 
                     <div class="form-actions" >
-                        <button class="btn-success" type="submit">Muokkaa</button>
+                        <button class="btn-md btn-primary" type="submit">Muokkaa</button>
                     </div>
                         </fieldset>
                     </form>
