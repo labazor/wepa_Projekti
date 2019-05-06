@@ -17,7 +17,9 @@
         <div class="col-sm-6 mx-auto">
             <legend>Lisää kuva</legend>
             <form class="form-group" method="POST" th:action="@{/lisaakuva}" enctype="multipart/form-data">
-                <input class="form-control" type="file" name="file" id="file"/>
+                <div class="form-group">
+                    <input class="form-control" type="file" name="file" id="file"/>
+                    </div>
                 <button class="btn btn-primary" type="submit">Lisää kuva</button>
             </form>
 
