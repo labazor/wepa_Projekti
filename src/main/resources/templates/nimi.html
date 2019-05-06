@@ -14,19 +14,19 @@
 
     <div class="container" style="margin-top:30px">
       <div class="row">
-        <div class="col-sm-8 mx-auto">
+        <div class="col-sm-6 mx-auto">
           
           <div>
-            <form name="f" method="POST" th:action="@{/vaihdanimi}">
+            <form class="form-group" name="f" method="POST" th:action="@{/vaihdanimi}">
                 <fieldset>
                     <legend>Vaihda nimi</legend>
                     <p th:text="${nimi}">
                     <div class="">
-                        <input type="text" name="nimi"/>
+                        <input class="form-group" type="text" name="nimi"/>
                     </div>
                     
                     <div class="form-actions" >
-                        <button class="btn-success" type="submit">Vaihda nimi</button>
+                        <button class="btn btn-primary" type="submit">Vaihda nimi</button>
                     </div>
                 </fieldset>
             </form>

@@ -1,45 +1,55 @@
 <!DOCTYPE html>
-
 <html lang="fi">
-    <head th:replace="fragments/layout :: header">
-    </head>
-    <body>
-        <div th:replace="fragments/layout :: jumbotron">
-        </div>
-        <div class="container" style="margin-top:30px">
-        <div class="row">
     
-        <div class="mx-auto">
+<head th:replace="fragments/layout :: header">
+</head>
+
+<body>
+
+    <div th:replace="fragments/layout :: jumbotron">
+    </div>
+
+
+<div class="container" style="margin-top:30px">
+  <div class="row">
+    
+    <div class="mx-auto">
         
-        <div tiles:fragment="content">
-            <form name="f" method="POST" th:action="@{/uusitili}">
+        
+        
+            <form class="form-group" name="f" th:action="@{/uusitili}" method="post">               
                 <fieldset>
                     <legend>Luo uusi tili</legend>
-                    <div>
+                    <div class="form-group">
                         <label for="nimi">Käyttäjän nimi</label>
-                        <input type="text" name="nimi"/>
+                        <input type="text" class="form-control" name="nimi"/>
                     </div>
-                    <div>
-                    <label for="kayttajatunnus">Käyttäjätunnus</label>
-                    <input type="text" name="kayttajatunnus"/>
+                    <div class="form-group">
+                        <label for="username">Käyttäjätunnus</label>
+                        <input type="text" class="form-control" id="username" name="kayttajatunnus"/>
                     </div>
-                    <div>
-                    <label for="salasana">Salasana</label>
-                    <input type="password" name="salasana"/>
+                    <div class="form-group">        
+                        <label for="password">Salasana</label>
+                        <input type="password" class="form-control" id="password" name="salasana"/>
                     </div>
                     <div class="form-actions" >
-                        <button class="btn-success" type="submit">Luo uusi tili</button>
+                        <button class="btn btn-primary" type="submit">Luo uusi</button>
                     </div>
                 </fieldset>
             </form>
-            <a href = "/">Takaisin alkuun</a>
-        </div>
+        
+    
+        <div>
+            <a class="link" href="/">Takaisin kirjautumiseen</a>
             
         </div>
-        </div>
-        </div>
         
-        <div th:replace="fragments/layout :: footer">
-        </div>
-    </body>
+    </div>
+  </div>
+</div>
+
+<div th:replace="fragments/layout :: footer">
+</div>
+
+</body>
 </html>
