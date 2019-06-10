@@ -1,8 +1,16 @@
+# University of Helsinki Mooc 2019 Java Spring MVC Development project.
+# Social media - Friend and picture application, or old-school facebook.
+
+English language and imoprovements are to be done.
+
+Course link
+https://web-palvelinohjelmointi-19.mooc.fi/
+
 # wepa_projekti 2019 kevät
 Web-palvelinohjelmointiprojekti - Kaveri- ja kuvasovellus, eli tuttavallisemmin vanhan kansan Facebook
 
 Sovellus löytyy toimivana osoitteesta
-https://frozen-tor-72190.herokuapp.com/
+
 
 # Sisäänkirjautuminen
 Ensimmäiseksi käyttäjä päätyy kirjautumissivulle. Täällä käyttäjä voi kirjautua tunnuksillaan palveluun.
