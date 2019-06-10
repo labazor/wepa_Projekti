@@ -1,5 +1,6 @@
-# University of Helsinki Mooc 2019 Java Spring MVC Development project.
 # Social media - Friend and picture application, or old-school facebook.
+
+University of Helsinki Mooc 2019 Java Spring MVC Development project.
 
 English language and imoprovements are to be done.
 
